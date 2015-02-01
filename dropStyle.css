@@ -1,0 +1,143 @@
+/*
+	HTML5 - Drag n drop example
+*/
+
+body{
+	background-image: url("images/background.png");
+}
+
+#idMovementTypeInput, #idDistanceTypeInput, #idTimeInput, #idDateInput {
+	width: 300px; 
+	opacity: .5; 
+	border-radius: 10px; 
+	text-align: center; 
+	color: grey; 
+	font-size: 26px; 
+	padding-bottom: 5px; 
+	margin: 0px;
+}
+
+#timebox, #moventbox, #distancebox, #datebox{
+	margin-top: 25px;
+}
+
+#timebox input, #moventbox input, #distancebox input, #datebox input{
+	color: #0066FF;
+}
+
+#radioform{
+    width: 100px;
+}
+
+#dropBoxes{
+	margin-left: 40%;
+	width: 500px;
+}
+#dropBoxes tr, h1{
+	text-align: center;
+}
+#socialIcons{
+	margin-top: 20px;
+	margin-left: 46%;
+	width: 190px;	
+}
+
+#dragItems{
+	position: fixed;
+	top: 100px;
+	right: 50px;
+}
+
+.dragItem{
+	text-align: center;
+	height: 20px;
+	width: 100px;
+	background-color: #66CCFF;
+	border: 1px solid #0066FF;
+	border-radius: 5px;
+}
+
+#titlePlaceholdcer {
+	display: ;	
+}
+
+#distancesPlaceholder, #timesPlaceholder {
+	display: none;	
+}
+
+#unit-swimming, #unit-walking, #unit-cycling, #unit-running, #unit-time {
+	display: none;
+	color: #99F;
+	font-weight:lighter;
+	font-style: italic;	
+}
+
+
+/*
+	Shaking effect for inpput boxes
+*/
+
+@keyframes shake{ 
+0% { transform: translate(2px, 1px) rotate(0deg); } 
+10% { transform: translate(-1px, -2px) rotate(-1deg); } 
+20% { transform: translate(-3px, 0px) rotate(1deg); } 
+30% { transform: translate(0px, 2px) rotate(0deg); } 
+40% { transform: translate(1px, -1px) rotate(1deg); } 
+50% { transform: translate(-1px, 2px) rotate(-1deg); } 
+60% { transform: translate(-3px, 1px) rotate(0deg); } 
+70% { transform: translate(2px, 1px) rotate(-1deg); } 
+80% { transform: translate(-1px, -1px) rotate(1deg); } 
+90% { transform: translate(2px, 2px) rotate(0deg); } 
+100% { transform: translate(1px, -2px) rotate(-1deg); } 
+} 
+
+@-moz-keyframes shake{ 
+0% { -moz-transform: translate(2px, 1px) rotate(0deg); } 
+10% { -moz-transform: translate(-1px, -2px) rotate(-1deg); } 
+20% { -moz-transform: translate(-3px, 0px) rotate(1deg); } 
+30% { -moz-transform: translate(0px, 2px) rotate(0deg); } 
+40% { -moz-transform: translate(1px, -1px) rotate(1deg); } 
+50% { -moz-transform: translate(-1px, 2px) rotate(-1deg); } 
+60% { -moz-transform: translate(-3px, 1px) rotate(0deg); } 
+70% { -moz-transform: translate(2px, 1px) rotate(-1deg); } 
+80% { -moz-transform: translate(-1px, -1px) rotate(1deg); } 
+90% { -moz-transform: translate(2px, 2px) rotate(0deg); } 
+100% { -moz-transform: translate(1px, -2px) rotate(-1deg); } 
+} 
+
+@-webkit-keyframes shake { 
+0% { -webkit-transform: translate(2px, 1px) rotate(0deg); } 
+10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); } 
+20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); } 
+30% { -webkit-transform: translate(0px, 2px) rotate(0deg); } 
+40% { -webkit-transform: translate(1px, -1px) rotate(1deg); } 
+50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); } 
+60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); } 
+70% { -webkit-transform: translate(2px, 1px) rotate(-1deg); } 
+80% { -webkit-transform: translate(-1px, -1px) rotate(1deg); } 
+90% { -webkit-transform: translate(2px, 2px) rotate(0deg); } 
+100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); } 
+} 
+
+.shake{ 
+display:inline-block; 
+animation-name: shake; 
+animation-duration: .5s; 
+transform-origin:90% 90%; 
+animation-iteration-count: 1; 
+animation-timing-function: ease-out; 
+
+-moz-animation-name: shake; 
+-moz-animation-duration: .5s; 
+-moz-transform-origin:90% 90%; 
+-moz-animation-iteration-count: 1; 
+-moz-animation-timing-function: ease-out; 
+
+-webkit-animation-name: shake; 
+-webkit-animation-duration: .5s; 
+-webkit-transform-origin:90% 90%; 
+-webkit-animation-iteration-count: 1; 
+-webkit-animation-timing-function: ease-out; 
+}
+
+

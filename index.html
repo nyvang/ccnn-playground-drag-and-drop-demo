@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CCNN.dk Drag ´n Drop demo</title>
+    <link href="dropStyle.css" rel="stylesheet" type="text/css" >
+    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+    
+    <!-- Just testing jQuerys answer to Handlebars -->
+	<script type="text/javascript" src="script/jquery.tmpl.js"></script>
+    
+    <meta charset="UTF-8"/>
+
+    <script type="text/javascript">
+	
+	$(document).ready(function() {
+		// Make the first inputbox shake a little to draw attention
+		$("#idMovementTypeInput").addClass("shake");
+		
+		//1: Populate the array for later use.	
+		var activitiesArray = [
+			{ title : "Løbe", distances : 1, distances : 2, distances : 3 , times : [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, ] },
+			{ title : "Cykle", distances : [5, 10, 15, 20, 25, 30, 35, 40, 45] , times : [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, ] },
+			{ title : "Gå", distances : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] , times : [25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80] },
+			{ title : "Svømme", distances : [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] , times : [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, ] }
+		]		
+		
+		var variablesToRender = [
+				{ imgSrc : "images/facebook-icon.png", alt : "Post on facebook" , height : "30px", width : "30px" , rel : "nofollow" , customLink : "&useid=123456789" },
+				{ imgSrc : "images/flickr-icon.png", alt : "Share on flickr" , height : "30px", width : "30px" , rel : "nofollow" , customLink : "&useid=123456789" },
+				{ imgSrc : "images/google-icon.png", alt : "Post on google+" , height : "30px", width : "30px" , rel : "nofollow" , customLink : "&useid=123456789" },
+				{ imgSrc : "images/twitter-icon.png", alt : "Share on twitter" , height : "30px", width : "30px" , rel : "nofollow" , customLink : "&useid=123456789" }
+			];
+		
+			// 2: Render activity titles
+			$("#listTemplateTitle").tmpl(activitiesArray).appendTo("#titlePlaceholder");
+	
+			// "jQuery, please render the above info and give me the images on the website, thnks m8"
+			$("#socialTemplate").tmpl(variablesToRender).appendTo("#socialLinks");
+	});
+		
+  function buttonClicked () {
+    alert("Træk/slip boxene til den indput boks hvor de passer");
+	}
+		
+  function onDropMovement(e){ 
+    e.preventDefault();
+    var text = e.dataTransfer.getData("text/plain");
+    var input = document.getElementById("idMovementTypeInput");
+  	input.value = text;	
+	
+		var tempTestArrayRun = [
+		{distances: [1]}, {distances: 3}, {distances: 5}, {distances: 7}, {distances: 9}, {distances: 15},
+		];		
+		var tempTestArrayBicycle = [
+			{distances: [10]}, {distances: 15}, {distances: 20}, {distances: 25}, {distances: 30}, {distances: 40},
+		];		
+		var tempTestArrayWalk = [
+			{distances: [3]}, {distances: 5}, {distances: 7}, {distances: 9}, {distances: 11}, {distances: 15},
+		];
+		var tempTestArraySwimm = [
+			{distances: [100]}, {distances: 200}, {distances: 300}, {distances: 400}, {distances: 500}, {distances: 900},
+		];
+		var tempTestTimeRun = [
+		{times: [5]}, {times: 15}, {times: 30}, {times: 50}, {times: 110}, {times: 130},
+		];		
+		var tempTestTimeBicycle = [
+			{times: [5]}, {times: 10}, {times: 15}, {times: 30}, {times: 40}, {times: 50},
+		];		
+		var tempTestTimeWalk = [
+			{times: [20]}, {times: 40}, {times: 50}, {times: 60}, {times: 70}, {times: 80},
+		];
+		var tempTestTimeSwimm = [
+			{times: [5]}, {times: 10}, {times: 15}, {times: 18}, {times: 22}, {times: 28},
+		];
+			
+			// Todo: Make next dragItems appear only if something actually gets in the title inputBox
+		if ("svømme" === input.value.toLowerCase()) {
+				$("#listTemplateDistances").tmpl(tempTestArraySwimm).appendTo("#distancesPlaceholder");
+				$("#unit-swimming").fadeToggle("slow");
+				$("#listTemplateTimes").tmpl(tempTestTimeSwimm).appendTo("#timesPlaceholder");
+				$("#unit-time").fadeToggle("slow");
+				
+			} else if ("gå" === input.value.toLowerCase()) {
+					$("#listTemplateDistances").tmpl(tempTestArrayWalk).appendTo("#distancesPlaceholder");
+					$("#unit-walking").fadeToggle("slow");
+					$("#listTemplateTimes").tmpl(tempTestTimeWalk).appendTo("#timesPlaceholder");
+					$("#unit-time").fadeToggle("slow");
+					
+				} else if ("cykle" === input.value.toLowerCase()) {
+						$("#listTemplateDistances").tmpl(tempTestArrayBicycle).appendTo("#distancesPlaceholder");
+						$("#unit-cycling").fadeToggle("slow");
+						$("#listTemplateTimes").tmpl(tempTestTimeBicycle).appendTo("#timesPlaceholder");
+						$("#unit-time").fadeToggle("slow");
+						
+					} else if ("løbe" === input.value.toLowerCase()) {
+							$("#listTemplateDistances").tmpl(tempTestArrayRun).appendTo("#distancesPlaceholder");
+							$("#unit-running").fadeToggle("slow");
+							$("#listTemplateTimes").tmpl(tempTestTimeRun).appendTo("#timesPlaceholder");
+							$("#unit-time").fadeToggle("slow");
+						}
+		// Hide the titlePlaceholder, and show distancePlaceholder - with the specific data
+		$("#titlePlaceholder").slideToggle("slow");
+		$("#distancesPlaceholder").slideToggle("slow");
+		// Make the next inputbox shake a little
+		$("#idDistanceTypeInput").addClass("shake");
+	}
+		
+	function onDropDistance(e){ 
+    e.preventDefault();
+    var text = e.dataTransfer.getData("text/plain");
+    var input = document.getElementById("idDistanceTypeInput");
+		input.value = text;
+				
+		// Todo: Make next dragItems appear only if something actually gets in the title inputBox
+			
+		// Hide the titlePlaceholder, and show distancePlaceholder - with the specific data
+		$("#distancesPlaceholder").slideToggle("slow");
+		$("#timesPlaceholder").slideToggle("slow");
+		// Make the next inputbox shake a little
+		$("#idTimeInput").addClass("shake");
+  }
+		
+	function onDropDeadline(e){ 
+    e.preventDefault();
+    var text = e.dataTransfer.getData("text/plain");
+    var input = document.getElementById("idTimeInput");
+  	input.value = text;
+		$("#timesPlaceholder").slideToggle("slow");
+		// Make the last inputbox shake a little
+		$("#idDateInput").addClass("shake");			
+	}
+	
+  function onDragOver(e){
+          e.preventDefault();
+      }
+  function onDragStart(e){
+          e.dataTransfer.setData("text/plain", event.target.textContent);
+      }
+		
+    </script>
+    
+	<!-- /////////////  jQuery Templates for rendering dynamic content ///////////// -->
+    <!-- Social Links -->
+    <script id="socialTemplate" type="text/x-jquery-tmpl">
+		<img src=${imgSrc} alt=${alt} width=${height} height=${width} rel=${rel}/>
+	</script>  
+    <!-- Dragitems - Activities  -->
+    <script id="listTemplateTitle" type="text/x-jquery-tmpl">
+			<div class="dragItem" draggable="true" ondragstart="onDragStart(event)">${title}</div>
+    </script>
+    <!-- Dragitems - Distances  -->
+    <script id="listTemplateDistances" type="text/x-jquery-tmpl">
+			<div class="dragItem" draggable="true" ondragstart="onDragStart(event)">${distances}</div>
+    </script>
+    <!-- Dragitems - Times  -->
+    <script id="listTemplateTimes" type="text/x-jquery-tmpl">
+			<div class="dragItem" draggable="true" ondragstart="onDragStart(event)">${times}</div>
+    </script>
+    <!-- End templates -->
+    
+</head>
+<body>
+<h1>Mit mål er:</h1>
+<div id="helpBox"><button id="helpButton" value="Hjælp" onClick="buttonClicked()">Hjælp</button></div>
+    <section id="dropBoxes">
+        <div id="moventbox">
+	        <label for="movementTypeInput" id="labelMovementTypeInput" value="value">at..</label><br />
+			<input name="movementTypeInput" id="idMovementTypeInput" multiple="multiple" ondragover="onDragOver(event)" 
+            		ondrop="onDropMovement(event)" placeholder="slip type her..." />
+	</div>
+	<div id="distancebox"> 
+		<label for="distanceTypeInput" id="labelDistanceTypeInput">minimum</label><br />
+		<input name="distanceTypeInput" id="idDistanceTypeInput" type="number" ondragover="onDragOver(event)" 
+        	maxlength="5" min="1" max="10000" ondrop="onDropDistance(event)" placeholder="slip distance her..." /> 
+	</div> 
+	<div id="timebox">
+		<label for="timeInput" id="labelTimeInput">på</label><br />
+		<input name="timeInput" id="idTimeInput" type="number" min="1" max="1000" maxlength="5" 
+        	ondragover="onDragOver(event)" ondrop="onDropDeadline(event)" placeholder="slip tiden her..." />  		
+	</div> 
+	<div id="datebox">
+		<label for="dateInput" id="labelDateInput">senest d.</label></br />
+		<input name="dateInput" id="idDateInput" type="date" />
+	</div> 	 
+    </section>
+	<div id="socialIcons">
+        <p>Brug for mere motivation?<br />
+           - del dit mål med dine venner!<br />
+	</p>
+		<div id="socialLinks">
+		</div>
+	</div>		
+
+<section id="dragItems">
+    <div id="titlePlaceholder">
+    	<h3>Træk aktivitet herfra:</h3>
+    </div>
+    <div id="distancesPlaceholder">
+        <h3>Træk distance herfra:</h3>
+        <p id="unit-running">Måles i Km</p>
+        <p id="unit-cycling">Måles i Km</p>
+        <p id="unit-walking">Måles i Km</p>
+        <p id="unit-swimming">Måles i meter</p>
+    </div>
+    <div id="timesPlaceholder">
+    	<h3>Træk tiden herfra:</h3>
+        <!-- The time-unit is allways in minutes, so only need for one paragraph here -->
+        <p id="unit-time">Måles i minutter</p>
+    </div>
+    
+	</section>
+</body>
+</html>
